@@ -7,9 +7,9 @@ class AppConfig
   public static $illuminateDb = [
     'driver'    => 'mysql',
     'host'      => 'localhost',
-    'database'  => 'tp_php',
-    'username'  => 'root',
-    'password'  => 'frnkquito',
+    'database'  => '####',
+    'username'  => '####',
+    'password'  => '####',
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => ''
