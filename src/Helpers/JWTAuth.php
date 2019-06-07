@@ -10,7 +10,7 @@ class JWTAuth
   private static $aud = null;
 
 
-  public function CreateToken($datos)
+  public static function CreateToken($datos)
   {
     $payload = array(
       'iat' => time(),
@@ -30,7 +30,7 @@ class JWTAuth
    * @access public
    * @return void
    */
-  public function VerifyToken($token)
+  public static function VerifyToken($token)
   {
     //empty token
     if(empty($token) || is_null($token))
@@ -56,7 +56,7 @@ class JWTAuth
     return true;
   }
 
-  public function Aud()
+  public static function Aud()
   {
     $aud = '';
     if(!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -78,7 +78,7 @@ class JWTAuth
     return sha1($aud);
   }
 
-  public function GetPayload($token)
+  public static function GetPayload($token)
   {
     try
     {
@@ -90,7 +90,7 @@ class JWTAuth
     }
   }
 
-  public function GetData($token)
+  public static function GetData($token)
   {
     return self::GetPayload($token)->data;
   }

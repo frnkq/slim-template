@@ -4,12 +4,12 @@ use Helpers\JWTAuth;
 
 class TokenValidatorMiddleware
 {
-  public function GetTokenData($request)
+  public static function GetTokenData($request)
   {
    return JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]); 
   }
 
-  public function IsValidToken($request)
+  public static function IsValidToken($request)
   {
     if(!isset($request->getHeaders()["HTTP_TOKEN"]))
     {

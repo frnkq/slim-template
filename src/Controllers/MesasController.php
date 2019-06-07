@@ -4,7 +4,10 @@ namespace Controllers;
 
 use Models\Mesa;
 use Helpers\JWTAuth;
-use Helpers\AppConfig;
+use Helpers\AppConfig as Config;
+use Helpers\FilesHelper as Files;
+use Helpers\ImagesHelper as Images;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class MesasController implements IController
 {
@@ -32,7 +35,11 @@ class MesasController implements IController
   public static function Create($request, $response, $args)
   {
     $mesa = new Mesa;
-    $mesa->estado = AppConfig::$estadosMesa["disponible"];
+    $mesa->id = Mesa::LastInsertId()+1;
+    $mesa->estado = Config::$estadosMesa["disponible"];
+
+
+    $mesa->picture = Mesa::SaveImage($request, $mesa->id);
     $mesa->save();
     $responseObj = ["message" => "mesa creada", "mesa" => $mesa];
     return $response->withJson(json_encode($responseObj), 200);
@@ -40,6 +47,8 @@ class MesasController implements IController
 
   public static function Update($request, $response, $args)
   {
+      //ID POR PARAMETRO EN /update/{id} para sacar
+      //el id de ahi y poder hacer update de foto
     $body = $request->getParsedBody();
     if(!isset($body["id"]))
     {
@@ -55,13 +64,24 @@ class MesasController implements IController
       return $response->withJson("mesa inexistente", 200);
     }
     $mesa->estado = $body["estado"];
+    $mesa->picture = Mesa::SaveImage($request, $mesa->id);
     $mesa->save();
     return $response->withJson("mesa guardada");
-    die();
   }
 
   public static function Delete($request, $response, $args)
   {
-    throw new \BadMethodCallException;
+    $body = $request->getParsedBody();
+    if(!isset($body["id"]))
+    {
+      return $response->withJson("debe especificar id", 400);
+    }
+    $mesa = Mesa::find($body["id"]);
+    if(!$mesa)
+    {
+      return $response->withJson("mesa inexistente", 200);
+    }
+    $mesa->delete();
+    return $response->withJson("mesa eliminada");
   }
 }
