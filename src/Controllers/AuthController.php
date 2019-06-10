@@ -10,7 +10,17 @@ class AuthController
   {
 
     $data = json_decode($request->getBody());
-    $user = User::FindByUsername($data->username);
+
+    if(!isset($data->username) || !isset($data->password))
+      return $response->withJson("ingrese username/password", 400);
+
+    $user = User::FindByUsernameAndPassword($data->username, $data->password);
+
+    if(is_null($user))
+    {
+      return $response->withJson("invalid username/password");
+    }
+
     return  JWTAuth::CreateToken($user);
   }
 

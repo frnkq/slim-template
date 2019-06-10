@@ -36,7 +36,7 @@ $clienteRoutes($app);
 //admin/mesas
 $app->get('/', function($request, $response, $args)
 {
-  $pedido = new PedidoCocina;
-  var_dump($pedido);
+  echo password_hash("hola", PASSWORD_BCRYPT);
+  echo password_verify("$2y$10$73UeCRoFIvdHMeElrhqE0.M/1pz/rVHjCzR30UDXUQaO9RusA5Pve", PASSWORD_BCRYPT);
 });
 $app->run();

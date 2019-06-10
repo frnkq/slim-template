@@ -3,6 +3,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use \Slim\App;
 use Controllers\EmpleadosController;
+use Middleware\AuthMiddleware;
+use Middleware\RoleMiddleware;
 //abm empleados
 return function(App $app)
 {
@@ -14,5 +16,6 @@ return function(App $app)
     $this->post('/create', EmpleadosController::class . ':Create');
     $this->put('/update', EmpleadosController::class . ':Update');
     $this->delete('/delete', EmpleadosController::class . ':Delete');
-  });
+  })->add(AuthMiddleware::class .':IsLoggedIn')
+    ->add(RoleMiddleware::class .':IsSocio');
 };

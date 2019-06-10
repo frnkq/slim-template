@@ -21,6 +21,16 @@ class User extends Model
   public static function FindByUsername($username)
   {
       $obj =  Capsule::select("SELECT * from ".Config::$tables["users"]." where username='$username'");
+      if(count($obj)==0)
+        return null;
+      return User::find($obj[0]->id);
+  }
+
+  public static function FindByUsernameAndPassword($username, $password)
+  {
+      $obj =  Capsule::select("SELECT * from ".Config::$tables["users"]." where username='$username' and password='$password'");
+      if(count($obj)==0)
+        return null;
       return User::find($obj[0]->id);
   }
 }
