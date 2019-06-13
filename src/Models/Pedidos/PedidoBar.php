@@ -6,6 +6,9 @@ use Models\Pedidos\IPedido;
 
 class PedidoBar extends Model implements IPedido
 {
+  /*
+   * pedido bar must take shorter than cocina, cerveza as well*/
+  //id, pedidoId,  estado, bartenderUsername, stockId, cantidad
   protected $table = "pedidos_bar";
   public $timestamps = false;
 
@@ -17,6 +20,12 @@ class PedidoBar extends Model implements IPedido
   function isValidStatus($status)
   {
      //check if status exists on AppConfig::PedidoStatus
+  }
+
+  public static function LastInsertId()
+  {
+    $pb = PedidoBar::select("id")->orderBy("id", "desc")->first();
+    return is_null($pb) ? 0 : $pb->id;
   }
 }
 

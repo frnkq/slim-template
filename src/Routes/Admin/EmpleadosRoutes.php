@@ -12,7 +12,7 @@ return function(App $app)
   $app->group('/admin/empleados', function()
   {
     $this->get('/', EmpleadosController::class . ':GetAll');
-    $this->get('/{id}', EmpleadosController::class . ':GetOne');
+    $this->get('/{username}', EmpleadosController::class . ':GetOne');
     $this->post('/create', EmpleadosController::class . ':Create');
     $this->put('/update', EmpleadosController::class . ':Update');
     $this->delete('/delete', EmpleadosController::class . ':Delete');

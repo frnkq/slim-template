@@ -14,7 +14,8 @@ class Mesa extends Model
 
   public static function LastInsertId()
   {
-    return Capsule::select("SELECT id from ".Config::$tables["mesas"]." order by id desc limit 1")[0]->id;
+    return Mesa::select("id")->orderBy("id", "desc")->first()->id;
+    //return Capsule::select("SELECT id from ".Config::$tables["mesas"]." order by id desc limit 1")[0]->id;
   }
 
   public static function SaveImage($request, $id)

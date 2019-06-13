@@ -38,8 +38,7 @@ class MesasController implements IController
     $mesa->id = Mesa::LastInsertId()+1;
     $mesa->estado = Config::$estadosMesa["disponible"];
 
-
-    $mesa->picture = Mesa::SaveImage($request, $mesa->id);
+    $mesa->image = Mesa::SaveImage($request, $mesa->id);
     $mesa->save();
     $responseObj = ["message" => "mesa creada", "mesa" => $mesa];
     return $response->withJson(json_encode($responseObj), 200);

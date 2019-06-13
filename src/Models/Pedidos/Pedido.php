@@ -19,5 +19,11 @@ class Pedido extends Model implements IPedido
   {
      //check if status exists on AppConfig::PedidoStatus
   }
+
+  public static function LastInsertId()
+  {
+    $p = Pedido::select("id")->orderBy("id", "desc")->first();
+    return is_null($p) ? 0 : $p->id;
+  }
 }
 

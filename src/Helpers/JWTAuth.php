@@ -43,7 +43,7 @@ class JWTAuth
     {
       $decoded = JWT::decode($token, self::$key, self::$encryption);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       //throw $e;
     }
@@ -84,7 +84,7 @@ class JWTAuth
     {
       return JWT::decode($token, self::$key, self::$encryption);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       return null;
     }
@@ -92,6 +92,7 @@ class JWTAuth
 
   public static function GetData($token)
   {
-    return self::GetPayload($token)->data;
+    $data = self::GetPayload($token);
+    return is_null($data->data) ? null : $data->data;
   }
 }

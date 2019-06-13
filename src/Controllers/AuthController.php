@@ -14,14 +14,24 @@ class AuthController
     if(!isset($data->username) || !isset($data->password))
       return $response->withJson("ingrese username/password", 400);
 
-    $user = User::FindByUsernameAndPassword($data->username, $data->password);
+    $user = User::FindByUsername($data->username);
 
-    if(is_null($user))
+
+    //0 = no user, transform it to one so it matches cond
+    if(!is_null($user))
     {
-      return $response->withJson("invalid username/password");
+      if(!password_verify($data->password, $user->password))
+      {
+        return $response->withJson("invalid username/password");
+      }
     }
 
-    return  JWTAuth::CreateToken($user);
+    $obj = [
+      "id" => $user->id,
+      "username" => $user->username,
+      "role" => $user->role
+    ];
+    return  JWTAuth::CreateToken($obj);
   }
 
   public static function Register($empleado, $password)
@@ -29,8 +39,8 @@ class AuthController
       $username = $empleado->username;
       $user = new User;
       $user->username = $username;
-      
-      $user->password = $password;
+
+      $user->password = password_hash($password, PASSWORD_DEFAULT);
       $user->role = $empleado->role;
 
       $user->save();

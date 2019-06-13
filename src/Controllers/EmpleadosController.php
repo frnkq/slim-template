@@ -70,7 +70,7 @@ class EmpleadosController implements IController
     }
 
     $empleado = Empleado::FindByUsername($body["username"]);
-    if(!$empleado)
+    if(is_null($empleado))
     {
       return $response->withJson("empleado inexistente", 200);
     }
@@ -96,12 +96,12 @@ class EmpleadosController implements IController
 
   public static function UpdatePicture($request, $response, $args)
   {
-      $id = $request->getAttribute("id");
+      $id = $request->getAttribute("username");
       if(is_null($id))
       {
-        return $resposne->withJson("debe especificar id del empleado");
+        return $resposne->withJson("debe especificar username empleado");
       }
-      $empleado = Empleado::find($id);
+      $empleado = Empleado::find($username);
       $empleado->picture = Empleado::SaveImage($request, $empleado->id);
       $result = $empleado->save();
       return $response->withJson("foto actualizada: ".$result, 200);

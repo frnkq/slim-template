@@ -1,0 +1,10 @@
+done:
+hash
+orm select::()
+
+
+todo:
+postman cases
+pedido dispatcher
+validation on update/creation (validation on roles, strings, etc)
+rellenar productos db on endpoint for admin/socio
