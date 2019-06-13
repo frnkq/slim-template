@@ -1,111 +1,261 @@
--- MySQL dump 10.13  Distrib 5.6.42, for Linux (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: frnkq_tp
--- ------------------------------------------------------
--- Server version	5.6.42
+-- Host: localhost
+-- Generation Time: Jun 13, 2019 at 12:49 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `tp_php`
+--
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `empleados`
 --
 
-DROP TABLE IF EXISTS `empleados`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `empleados` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `dni` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `apellido` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `horario` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `dni` (`dni`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `horario` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `empleados`
 --
 
-LOCK TABLES `empleados` WRITE;
-/*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,'39774900','juancarli','tos','Juan.Carlos','socio',NULL,NULL),(2,'39774901','Jose','Perez','Jose.Perez','mozo',NULL,NULL),(3,'39774902','jorge','raul','jraul902','mozo',NULL,NULL),(4,'39774903','victor','paez','vpaez903','mozo',NULL,NULL);
-/*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `empleados` (`id`, `dni`, `nombre`, `apellido`, `username`, `role`, `image`, `horario`) VALUES
+(1, '39774900', 'franco', 'canevali', 'fcanevali900', 'socio', NULL, NULL);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `mesas`
 --
 
-DROP TABLE IF EXISTS `mesas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mesas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `image` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `estado` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mesas`
 --
 
-LOCK TABLES `mesas` WRITE;
-/*!40000 ALTER TABLE `mesas` DISABLE KEYS */;
-INSERT INTO `mesas` VALUES (4,'4.png','pagando'),(5,NULL,'Disponible'),(6,'6.jpg','Disponible'),(7,'7.jpg','Disponible'),(8,'.jpg','Disponible'),(9,'9.jpg','Disponible');
-/*!40000 ALTER TABLE `mesas` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `mesas` (`id`, `image`, `estado`) VALUES
+(4, '4.png', 'pagando'),
+(5, NULL, 'Disponible'),
+(6, '6.jpg', 'Disponible'),
+(7, '7.jpg', 'Disponible'),
+(8, '.jpg', 'Disponible'),
+(9, '9.jpg', 'Disponible'),
+(10, NULL, 'Disponible');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `id` int(11) NOT NULL,
+  `facturaId` int(11) NOT NULL,
+  `mesaId` int(11) NOT NULL,
+  `mozoUsername` int(11) NOT NULL,
+  `clienteUsername` int(11) NOT NULL,
+  `estado` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pedidosBarIds` varchar(90) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pedidosCervezaIds` varchar(90) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pedidosCocinaIds` varchar(90) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `facturaId`, `mesaId`, `mozoUsername`, `clienteUsername`, `estado`, `pedidosBarIds`, `pedidosCervezaIds`, `pedidosCocinaIds`, `hora`) VALUES
+(1, 0, 0, 0, 0, '', '15_16', '', '', '2019-06-13 00:36:28'),
+(2, 0, 0, 0, 0, '', '17_18', '', '', '2019-06-13 00:36:43'),
+(3, 0, 0, 0, 0, '', '19_20', '', '', '2019-06-13 00:37:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedidos_bar`
+--
+
+CREATE TABLE `pedidos_bar` (
+  `id` int(11) NOT NULL,
+  `pedidoId` int(11) NOT NULL,
+  `bartenderUsername` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estado` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productoId` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `cerrado` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pedidos_bar`
+--
+
+INSERT INTO `pedidos_bar` (`id`, `pedidoId`, `bartenderUsername`, `estado`, `productoId`, `cantidad`, `cerrado`) VALUES
+(1, 4, NULL, '', 3, 1, '2019-06-13 00:46:44'),
+(2, 4, NULL, '', 4, 2, '2019-06-13 00:46:44'),
+(3, 4, NULL, '', 4, 9, '2019-06-13 00:46:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productos`
+--
+
+CREATE TABLE `productos` (
+  `id` int(11) NOT NULL,
+  `categoria` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `producto` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precioUnitario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `productos`
+--
+
+INSERT INTO `productos` (`id`, `categoria`, `producto`, `cantidad`, `precioUnitario`) VALUES
+(1, 'Cocina', 'Estofado de pollo', 90, 1000),
+(2, 'Cocina', 'Tallarines al pesto', 90, 900),
+(3, 'Bar', 'Vino tinto de la casa', 90, 800),
+(4, 'Bar', 'Medida whisky', 90, 750),
+(5, 'Cerveza', 'Cerveza quilmes', 90, 700),
+(6, 'Cerveza', 'Cerveza palermo', 90, 650),
+(7, 'Postre', 'Porcion torta de ricota', 90, 400),
+(8, 'Postre', 'Mousse chocolate', 90, 400);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `password` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Juan.Carlos','jcarlos','socio'),(2,'Jose.Perez','jperez','mozo'),(3,'jraul902','jraul','mozo'),(4,'vpaez903','vpaez','mozo');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
+(1, 'fcanevali900', '$2y$10$W.TZ5.1snV.XKYrcjw9A3uhsihf6vOAsJSdAdjOkwfq870RTwwUPa', 'socio');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `empleados`
+--
+ALTER TABLE `empleados`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `mesas`
+--
+ALTER TABLE `mesas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pedidos_bar`
+--
+ALTER TABLE `pedidos_bar`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `empleados`
+--
+ALTER TABLE `empleados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `mesas`
+--
+ALTER TABLE `mesas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `pedidos_bar`
+--
+ALTER TABLE `pedidos_bar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-06-10 18:43:03
