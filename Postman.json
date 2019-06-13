@@ -1,0 +1,667 @@
+{
+	"info": {
+		"_postman_id": "a3a79a3d-490b-4ce7-acba-772eb979d218",
+		"name": "TpPhp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Empleados",
+			"item": [
+				{
+					"name": "EMPLEADOS::GetAll - localhost:86/admin/empleados/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:86/admin/empleados/",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"empleados",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLEADOS::Create - http://localhost:86/admin/empleados/create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzczODIsImV4cCI6MTU2MDIzNzM4MiwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoxLCJ1c2VybmFtZSI6Ikp1YW4uQ2FybG9zIiwicGFzc3dvcmQiOiJqY2FybG9zIiwicm9sZSI6Im1vem8ifV0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.76luaz7j2L5K-djPEKCAswdNbb1MoKrgP_5SzMMeDWk",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dni\":\"39774901\",\n\t\"nombre\":\"Jose\",\n\t\"apellido\": \"Perez\",\n\t\"rol\": \"mozo\",\n\t\"contrasena\": \"jperez\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/empleados/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"empleados",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLEADOS::GetAll - http://localhost:86/admin/empleados",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzgyNDksImV4cCI6MTU2MDIzODI0OSwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoxLCJ1c2VybmFtZSI6Ikp1YW4uQ2FybG9zIiwicGFzc3dvcmQiOiJqY2FybG9zIiwicm9sZSI6InNvY2lvIn1dLCJhcHAiOiJGcmFuY28gQ2FuZXZhbGkifQ.ATYOmRLGRc9kTqAwzFJ1tdAjn-xG_7MkcbLmadNqXBg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"Juan.Carlos\",\n\t\"nombre\": \"juancarli\",\n\t\"apellido\": \"tos\",\n\t\"rol\":\"socio\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/empleados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLEADOS::GetOne - http://localhost:86/admin/empleados/jcarlos900",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzgyNDksImV4cCI6MTU2MDIzODI0OSwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoxLCJ1c2VybmFtZSI6Ikp1YW4uQ2FybG9zIiwicGFzc3dvcmQiOiJqY2FybG9zIiwicm9sZSI6InNvY2lvIn1dLCJhcHAiOiJGcmFuY28gQ2FuZXZhbGkifQ.ATYOmRLGRc9kTqAwzFJ1tdAjn-xG_7MkcbLmadNqXBg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"Juan.Carlos\",\n\t\"nombre\": \"juancarli\",\n\t\"apellido\": \"tos\",\n\t\"rol\":\"socio\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/empleados/jcarlos900",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"empleados",
+								"jcarlos900"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLEADOS::Update - http://localhost:86/admin/empleados/update/",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzc4ODQsImV4cCI6MTU2MDIzNzg4NCwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoyLCJ1c2VybmFtZSI6Ikpvc2UuUGVyZXoiLCJwYXNzd29yZCI6ImpwZXJleiIsInJvbGUiOiJtb3pvIn1dLCJhcHAiOiJGcmFuY28gQ2FuZXZhbGkifQ.mL9f0NEqPj_RXSwhK_l52Pv-HRcDZNV4E34nlsx7h3s",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/empleados/update/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"empleados",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLEADOS::Delete - http://localhost:86/admin/empleados/update",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAzNzkxNTQsImV4cCI6MTU2MDQzOTE1NCwiYXVkIjoiZTNiMGJhNTk4OTFmMmRmZTI4MGVkYWVkOGRiYmI3N2Q0Y2UyZDU3YiIsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiamNhcmxvczkwMCIsInJvbGUiOiJzb2NpbyJ9LCJhcHAiOiJGcmFuY28gQ2FuZXZhbGkifQ._4LQv205m5uEghPZu4Nwh4xeVSKs_ejiejpi2pT9Y_Q",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"jcarlos900\",\n\t\"nombre\": \"juan carlos\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/empleados/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"empleados",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mesas",
+			"item": [
+				{
+					"name": "MESAS::GetAll - localhost:86/admin/mesas/",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTk3Nzg3MTAsImV4cCI6MTU1OTgzODcxMCwiYXVkIjoiZTNiMGJhNTk4OTFmMmRmZTI4MGVkYWVkOGRiYmI3N2Q0Y2UyZDU3YiIsImRhdGEiOnsidXNlcm5hbWUiOiJjYXJsIiwicm9sZSI6Im1vem8ifSwiYXBwIjoiRnJhbmNvIENhbmV2YWxpIn0.xfD3pCdLFeaIK8FsjMCPBWqWeCA2DYQzfpNdXC8Io6A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:86/admin/mesas/",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"mesas",
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTk3NzQ2NDUsImV4cCI6MTU1OTc3NDcwNSwiYXVkIjoiZTNiMGJhNTk4OTFmMmRmZTI4MGVkYWVkOGRiYmI3N2Q0Y2UyZDU3YiIsImRhdGEiOnsidXNlcm5hbWUiOiJzb21ldXNlcm5hbWUifSwiYXBwIjoiRnJhbmNvIENhbmV2YWxpIn0.VzfqdMfJLT0Q3ay-ut2qIt7NwrmUtNWmK31hunpzv8U",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MESAS::Create - http://localhost:86/admin/mesas/create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNjQzODcsImV4cCI6MTU2MDIyNDM4NywiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOnsidXNlcm5hbWUiOiJjYXJsIiwicm9sZSI6InNvY2lvIn0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.zb6vKcORyE5A-RccOUYSm7UIjxLuNhdlo14IYciekvo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/mesas/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"mesas",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MESAS::GetOne - localhost:86/admin/mesas/3",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTk3NzkzMDEsImV4cCI6MTU1OTgzOTMwMSwiYXVkIjoiZTNiMGJhNTk4OTFmMmRmZTI4MGVkYWVkOGRiYmI3N2Q0Y2UyZDU3YiIsImRhdGEiOnsidXNlcm5hbWUiOiJjYXJsIiwicm9sZSI6InNvY2lvIn0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.Vhyzoa3CtCeSIQVRBg26d87pDHriah_6SJZ2I_IV1DU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:86/admin/mesas/3",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"mesas",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MESAS::Update - localhost:86/admin/mesas/update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNjQzODcsImV4cCI6MTU2MDIyNDM4NywiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOnsidXNlcm5hbWUiOiJjYXJsIiwicm9sZSI6InNvY2lvIn0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.zb6vKcORyE5A-RccOUYSm7UIjxLuNhdlo14IYciekvo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"4\",\n\t\"estado\": \"pagando\"\n}"
+						},
+						"url": {
+							"raw": "localhost:86/admin/mesas/update",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"mesas",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MESAS::Delete - locaalhost:86/admin/mesas/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTk5MTAwMjcsImV4cCI6MTU1OTk3MDAyNywiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOnsidXNlcm5hbWUiOiJjYXJsIiwicm9sZSI6InNvY2lvIn0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.EndUOqk0GWe3KqzZH_HYy1qHT1uvuLa4JJAqPGQot_Y",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"2\"\n}"
+						},
+						"url": {
+							"raw": "localhost:86/admin/mesas/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"mesas",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTk3NzQ2NDUsImV4cCI6MTU1OTc3NDcwNSwiYXVkIjoiZTNiMGJhNTk4OTFmMmRmZTI4MGVkYWVkOGRiYmI3N2Q0Y2UyZDU3YiIsImRhdGEiOnsidXNlcm5hbWUiOiJzb21ldXNlcm5hbWUifSwiYXBwIjoiRnJhbmNvIENhbmV2YWxpIn0.VzfqdMfJLT0Q3ay-ut2qIt7NwrmUtNWmK31hunpzv8U",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MESAS::UpdatePicture - http://localhost:86/admin/mesas/create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNjQzODcsImV4cCI6MTU2MDIyNDM4NywiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOnsidXNlcm5hbWUiOiJjYXJsIiwicm9sZSI6InNvY2lvIn0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.zb6vKcORyE5A-RccOUYSm7UIjxLuNhdlo14IYciekvo",
+								"type": "text"
+							},
+							{
+								"key": "image",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/mesas/update/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"mesas",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "AUTH::LogIn - localhost:86/auth/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"carl\",\n\t\"role\": \"socio\"\n}"
+						},
+						"url": {
+							"raw": "localhost:86/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "AUTH::LogIn_socio - localhost:86/auth/login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"Juan.Carlos\",\n\t\"password\": \"jcarlos\"\n}"
+								},
+								"url": {
+									"raw": "localhost:86/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "86",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 10 Jun 2019 14:50:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.39 (Unix) PHP/7.3.6"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.6"
+								},
+								{
+									"key": "Content-Length",
+									"value": "331"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzgyNDksImV4cCI6MTU2MDIzODI0OSwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoxLCJ1c2VybmFtZSI6Ikp1YW4uQ2FybG9zIiwicGFzc3dvcmQiOiJqY2FybG9zIiwicm9sZSI6InNvY2lvIn1dLCJhcHAiOiJGcmFuY28gQ2FuZXZhbGkifQ.ATYOmRLGRc9kTqAwzFJ1tdAjn-xG_7MkcbLmadNqXBg"
+						},
+						{
+							"name": "AUTH::LogIn_mozo - localhost:86/auth/login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"Jose.Perez\",\n\t\"password\": \"jperez\"\n}"
+								},
+								"url": {
+									"raw": "localhost:86/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "86",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 10 Jun 2019 14:50:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.39 (Unix) PHP/7.3.6"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.6"
+								},
+								{
+									"key": "Content-Length",
+									"value": "331"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzgyNDksImV4cCI6MTU2MDIzODI0OSwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoxLCJ1c2VybmFtZSI6Ikp1YW4uQ2FybG9zIiwicGFzc3dvcmQiOiJqY2FybG9zIiwicm9sZSI6InNvY2lvIn1dLCJhcHAiOiJGcmFuY28gQ2FuZXZhbGkifQ.ATYOmRLGRc9kTqAwzFJ1tdAjn-xG_7MkcbLmadNqXBg"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "PEDIDOS::Create - http://localhost:86/admin/pedidos/create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjAxNzczODIsImV4cCI6MTU2MDIzNzM4MiwiYXVkIjoiMDg4NTJiMzgzNTllZTFhZDY4OGMzMGE1MzEwNDk4NGJhNzU2YTMxNCIsImRhdGEiOlt7ImlkIjoxLCJ1c2VybmFtZSI6Ikp1YW4uQ2FybG9zIiwicGFzc3dvcmQiOiJqY2FybG9zIiwicm9sZSI6Im1vem8ifV0sImFwcCI6IkZyYW5jbyBDYW5ldmFsaSJ9.76luaz7j2L5K-djPEKCAswdNbb1MoKrgP_5SzMMeDWk",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dni\":\"39774901\",\n\t\"nombre\":\"Jose\",\n\t\"apellido\": \"Perez\",\n\t\"rol\": \"mozo\",\n\t\"contrasena\": \"jperez\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:86/admin/pedidos/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "86",
+							"path": [
+								"admin",
+								"pedidos",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
