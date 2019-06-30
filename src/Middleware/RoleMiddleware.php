@@ -33,4 +33,19 @@ class RoleMiddleware extends TokenValidatorMiddleware
     return $next($request, $response);
   }
 
+  public static function IsMozo($request, $response, $next)
+  {
+    $data = parent::GetTokenData($request);
+
+    if(is_null($data))
+      return $response->withJson("no tiene los permisos necesarios para acceder aqui, ismozo", 403);
+
+    if(strtolower($data->role != "mozo"))
+    {
+      return $response->withJson("no tiene los permisos necesarios para acceder aqui, ismozo", 403);
+    }
+
+    return $next($request, $response);
+  }
+
 }

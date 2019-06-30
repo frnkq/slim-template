@@ -1,10 +1,38 @@
-done:
-hash
-orm select::()
+formatear pedido en PedidosController::GetByCliente()
+poder actualizar, agregar cosas al pedido (actualizar factura en este momento)
+  (editar pedido)
+dispatchees vean sus pedidos y cambien estado
+cerrar mesa (mozo o socios, ver pdf)
+  -> cerrar factura
+  -> cerrar pedido
 
+ver el flujo en el appconfig estados
+releer pdf y definir cosas
 
-todo:
-postman cases
-pedido dispatcher
-validation on update/creation (validation on roles, strings, etc)
-rellenar productos db on endpoint for admin/socio
+registracion de empleados, dos socios, dos mozos, dos bartender, dos cocineros, dos cerveceros
+/*
+   *   #bartender #candybar #cervecero
+   *   actualizan de nuevo a "en preparacion" /cancelado
+   *   actualizan de en preparacion a "listo para servir" / cancelado 
+   *   actualizan de listo para servir a entregado / cancelado 
+   *   listo p servir => "avisa " al mozo ¿?
+   * (mozo) => "recoge los quees"
+   *   main pedido "listo para servir"? el mozo va sirviendo..
+   *   todos los quees entregados? estado main "todo servido"
+   *   actualiza de (x) a "entregado"
+   *   puede agregar un quee, sigue el mismo flujo
+   * (mozo) => cierra 
+   * 1 pedido por mesa
+   * main: id, idmesa, mozo, idcliente, idfactura, hora, 
+   *    estado, idBar(vino, trago), idCerveza(cerveza), idCocina (candy, platos)
+   * (piden algo mas? nueva row, nuevo id, mismo idmesa, mismo idcliente);
+   * piden una cerveza => idbar = (int), idcocina = null, idcandy = null
+   *
+   *
+   *
+   * pide cerveza "quilmes"
+   * crea pedido main
+   * crea pedidoCerveza = stockId, cantidad
+   */
+
+crear flujo en postman

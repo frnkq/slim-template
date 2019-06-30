@@ -36,4 +36,20 @@ class User extends Model
      //return User::find($obj[0]->id);
      return User::where("username", $username)->where("password", $password)->first();
   }
+
+  public static function CreateClienteUsername($username, $i=null)
+  {
+    $i = is_null($i) ? 1 : ((int)explode("_", $username)[1]) +1;
+
+    $username = str_replace(" ", "", $username);
+
+    if(User::where("username", $username)->first() != null)
+    {
+      $username = explode("_", $username);
+      $username = $username[0];
+      $username = $username."_".$i;
+      return self::CreateClienteUsername($username, $i);
+    }
+    return $username;
+  }
 }

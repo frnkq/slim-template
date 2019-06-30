@@ -8,22 +8,27 @@ class AuthController
 {
   public static function LogIn($request, $response, $args)
   {
-
     $data = json_decode($request->getBody());
+
+    //echo password_hash($data->password, PASSWORD_DEFAULT); die();
+
 
     if(!isset($data->username) || !isset($data->password))
       return $response->withJson("ingrese username/password", 400);
 
     $user = User::FindByUsername($data->username);
 
-
-    //0 = no user, transform it to one so it matches cond
-    if(!is_null($user))
+    if(is_null($user))
+    {
+        return $response->withJson("invalid username/password");
+    }
+    else
     {
       if(!password_verify($data->password, $user->password))
       {
         return $response->withJson("invalid username/password");
       }
+
     }
 
     $obj = [
@@ -34,17 +39,15 @@ class AuthController
     return  JWTAuth::CreateToken($obj);
   }
 
-  public static function Register($empleado, $password)
+  public static function Register($user, $password)
   {
-      $username = $empleado->username;
-      $user = new User;
-      $user->username = $username;
+      $newUser = new User;
+      $newUser->username = $user->username;
+      $newUser->password = password_hash($password, PASSWORD_DEFAULT);
+      $newUser->role = $user->role;
 
-      $user->password = password_hash($password, PASSWORD_DEFAULT);
-      $user->role = $empleado->role;
-
-      $user->save();
-      return $user;
+      $newUser->save();
+      return $newUser;
   }
 
   public static function ChangePassword()

@@ -16,6 +16,6 @@ return function(App $app)
     $this->post('/create', EmpleadosController::class . ':Create');
     $this->put('/update', EmpleadosController::class . ':Update');
     $this->delete('/delete', EmpleadosController::class . ':Delete');
-  })->add(AuthMiddleware::class .':IsLoggedIn')
-    ->add(RoleMiddleware::class .':IsSocio');
+  })->add(AuthMiddleware::class .':IsLoggedIn');
+    //->add(RoleMiddleware::class .':IsSocio');
 };

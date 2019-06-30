@@ -13,7 +13,7 @@ class MesasController implements IController
 {
   public static function GetAll($request, $response, $args)
   {
-    return "mostrando mezas";
+    return var_dump(Mesa::all());
   }
 
   public static function GetOne($request, $response, $args)

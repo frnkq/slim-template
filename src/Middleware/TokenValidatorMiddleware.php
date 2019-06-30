@@ -6,7 +6,7 @@ class TokenValidatorMiddleware
 {
   public static function GetTokenData($request)
   {
-   return JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]); 
+   return JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]);
   }
 
   public static function IsValidToken($request)

@@ -93,6 +93,7 @@ class JWTAuth
   public static function GetData($token)
   {
     $data = self::GetPayload($token);
+    if(is_null($data)) return null;
     return is_null($data->data) ? null : $data->data;
   }
 }
