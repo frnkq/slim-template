@@ -4,6 +4,8 @@ namespace Controllers;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Controllers\AuthController;
+use Models\Empleado;
+use Models\Mesa;
 use Models\Pedidos\Pedido;
 use Models\Factura;
 use Models\Producto;
@@ -37,20 +39,47 @@ class PedidosController implements IController
         break;
 
     case "mozo":
-      echo "mostrando los pedidos del mozo: ".$token->username;
+        self::GetPedidoByMozo($request, $response, $args);
       break;
 
-    case "admin":
-      echo "mostrando todos los pedidos";
+    case "socio":
+        self::GetPedidosBySocio($request, $response, $args);
       break;
     }
+  }
+
+  public static function GetPedidosBySocio($request, $response, $args)
+  {
+    $token = JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]);
+    echo "socio ".$token->username;
+    $pedidos = Pedido::all();
+    $returnStr = "";
+    foreach($pedidos as $pedido)
+    {
+      $returnStr .= self::PedidoToUl($pedido->id);
+    }
+    return $response->getBody()->write($returnStr);
+  }
+  public static function GetPedidoByMozo($request, $response, $args)
+  {
+    $token = JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]);
+    $pedidos = Pedido::where("mozoUsername", $token->username)->get();
+    $pedidosR = array();
+    $returnStr = "";
+    echo "mozo ".$token->username;
+    foreach($pedidos as $pedido)
+    {
+      $returnStr .= self::PedidoToUl($pedido->id);
+    }
+    return $response->getBody()->write($returnStr);
   }
 
   public static function GetPedidoByCliente($request, $response, $args)
   {
     $token = JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]);
     $pedido = Pedido::where("clienteUsername", $token->username)->first();
-    return $response->withJson(var_dump($pedido), 200); 
+    echo "cliente ".$token->username;
+    return $response->getBody()->write(self::PedidotoUl($pedido->id));
   }
 
   public static function Create($request, $response, $args)
@@ -157,7 +186,7 @@ class PedidosController implements IController
     return array(
       "cocina" => $pedidosCocina,
       "bar" => $pedidosBar,
-      "cerveza" => $pedidosCerveza 
+      "cerveza" => $pedidosCerveza
     );
   }
 
@@ -170,5 +199,50 @@ class PedidosController implements IController
   public static function Delete($request, $response, $args)
   {
     throw new \BadMethodCallException;
+  }
+
+  public static function PedidoToUl($id)
+  {
+    $pedido = Pedido::find($id);
+    $returnStr = "<ul>";
+    $returnStr .="<li>Pedido: ".$pedido->id."</li>";
+    $returnStr .="<li>Cliente: ".$pedido->clienteUsername."</li>";
+    $returnStr .="<li>Mesa: ".$pedido->mesaId."</li>";
+    $mozo = Empleado::where("username", $pedido->mozoUsername)->first();
+
+    $returnStr .="<li>Mozo: ".$mozo->nombre." ".$mozo->apellido."</li>";
+    $returnStr .="<li>Bar:";
+    $returnStr .="<ul>";
+      foreach(json_decode($pedido->pedidosBarIds) as $idPedidoBar)
+      {
+        $pedidoBar = PedidoBar::find($idPedidoBar)->first();
+        $prod = Producto::find($pedidoBar->productoId);
+        $returnStr .= "<li>".$pedidoBar->cantidad." X ".$prod->producto."</li>";
+      }
+    $returnStr .="</ul>";
+
+    $returnStr .="<li>Cerveza:";
+    $returnStr .="<ul>";
+      foreach(json_decode($pedido->pedidosCervezaIds) as $idPedidoCerveza)
+      {
+        $pedidoCerveza = PedidoCerveza::find($idPedidoCerveza)->first();
+        $prod = Producto::find($pedidoCerveza->productoId);
+        $returnStr .= "<li>".$pedidoCerveza->cantidad." X ".$prod->producto."</li>";
+      }
+    $returnStr .="</ul>";
+
+    $returnStr .="<li>Cocina:";
+    $returnStr .="<ul>";
+      foreach(json_decode($pedido->pedidosCocinaIds) as $idPedidoCocina)
+      {
+        $pedidoCocina = PedidoCocina::find($idPedidoCocina);
+        $prod = Producto::find($pedidoCocina->productoId);
+        $returnStr .= "<li>".$pedidoCocina->cantidad." X ".$prod->producto."</li>";
+      }
+    $returnStr .="</ul>";
+
+    $returnStr .="</ul>";
+    $returnStr .="<hr>";
+    return $returnStr;
   }
 }

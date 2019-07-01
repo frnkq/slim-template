@@ -1,13 +1,24 @@
-formatear pedido en PedidosController::GetByCliente()
+Yo, como administrador del sistema, necesito ver:(Necesito ver o de una fecha en particular o  en un lapso de tiempo.)
+
+
 poder actualizar, agregar cosas al pedido (actualizar factura en este momento)
   (editar pedido)
 dispatchees vean sus pedidos y cambien estado
+mozo va viendo del pedido que esta listo para entregar y entrega
+
+
 cerrar mesa (mozo o socios, ver pdf)
   -> cerrar factura
   -> cerrar pedido
 
 ver el flujo en el appconfig estados
 releer pdf y definir cosas
+
+1 - WEB hosting -- REQUISITO EXCLUYENTE.
+5 - LISTADO - EMPLEADOS (fecha logueo - cant. operaciones - suspensión - borrado).
+7 - LISTADO -  (hora inicio, hora finalización, importe).
+
+
 
 registracion de empleados, dos socios, dos mozos, dos bartender, dos cocineros, dos cerveceros
 /*
@@ -36,3 +47,21 @@ registracion de empleados, dos socios, dos mozos, dos bartender, dos cocineros, 
    */
 
 crear flujo en postman
+
+1-socio crea empleado
+  se crea username
+
+socio:
+  fcanevali900-fcanevali
+mozos: 
+  jalberto902-jalberto
+  jperez903-jperez
+bartender:
+  equito904-equito
+  mrizzo905-mrizzo
+cocinero:
+  psalde906-psalde
+  egonzalez907-egonzalez
+cervecero:
+  aruiz908-aruiz
+  mhacha909-mhacha
