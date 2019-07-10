@@ -23,5 +23,9 @@ return function(App $app)
   });
 
   $app->get("/pedidos", PedidosController::class . ':GetPedidosBasedOnRole')->add(AuthMiddleware::class . ':IsLoggedIn');
+  $app->get("/pedido/{alfanum}", PedidosController::class . ':GetPedidoForCliente')->add(AuthMiddleware::class . ':IsLoggedIn');
+
+  //id corresponde al tipo de pedido segun el rol
+  $app->post("/pedidos/{id}", PedidosController::class . ':Update')->add(AuthMiddleware::class . ':IsLoggedIn');
 
 };

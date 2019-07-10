@@ -1,56 +1,9 @@
-Yo, como administrador del sistema, necesito ver:(Necesito ver o de una fecha en particular o  en un lapso de tiempo.)
-
 
 poder actualizar, agregar cosas al pedido (actualizar factura en este momento)
   (editar pedido)
-dispatchees vean sus pedidos y cambien estado
-mozo va viendo del pedido que esta listo para entregar y entrega
-
-
-cerrar mesa (mozo o socios, ver pdf)
-  -> cerrar factura
-  -> cerrar pedido
-
-ver el flujo en el appconfig estados
-releer pdf y definir cosas
-
-1 - WEB hosting -- REQUISITO EXCLUYENTE.
-5 - LISTADO - EMPLEADOS (fecha logueo - cant. operaciones - suspensión - borrado).
-7 - LISTADO -  (hora inicio, hora finalización, importe).
-
-
-
-registracion de empleados, dos socios, dos mozos, dos bartender, dos cocineros, dos cerveceros
-/*
-   *   #bartender #candybar #cervecero
-   *   actualizan de nuevo a "en preparacion" /cancelado
-   *   actualizan de en preparacion a "listo para servir" / cancelado 
-   *   actualizan de listo para servir a entregado / cancelado 
-   *   listo p servir => "avisa " al mozo ¿?
-   * (mozo) => "recoge los quees"
-   *   main pedido "listo para servir"? el mozo va sirviendo..
-   *   todos los quees entregados? estado main "todo servido"
-   *   actualiza de (x) a "entregado"
-   *   puede agregar un quee, sigue el mismo flujo
-   * (mozo) => cierra 
-   * 1 pedido por mesa
-   * main: id, idmesa, mozo, idcliente, idfactura, hora, 
-   *    estado, idBar(vino, trago), idCerveza(cerveza), idCocina (candy, platos)
-   * (piden algo mas? nueva row, nuevo id, mismo idmesa, mismo idcliente);
-   * piden una cerveza => idbar = (int), idcocina = null, idcandy = null
-   *
-   *
-   *
-   * pide cerveza "quilmes"
-   * crea pedido main
-   * crea pedidoCerveza = stockId, cantidad
-   */
-
-crear flujo en postman
 
 1-socio crea empleado
   se crea username
-
 socio:
   fcanevali900-fcanevali
 mozos: 
@@ -65,3 +18,75 @@ cocinero:
 cervecero:
   aruiz908-aruiz
   mhacha909-mhacha
+
+------------------------
+
+ver pedidos por rol 
+[DONE]
+
+Actualizar pedido por rol /pedidos/{id}/actualizar -> en preparacion / listo para servir
+  pedido general -> en preparacion, cuando todos los q's esten listos, listo para servir
+[DONE]
+
+ver single pedido
+[DONE]
+
+actualizar queue as "entregado" when mozo takes up /pedidos/cerveza/id if listo p servir => entregado
+[DONE]
+
+actualizar estado mesa properly
+[DONE]
+
+
+timestamps created updated closed -> pedidos and qs
+[DONE]
+
+Codigo alfanumerico para cliente 
+[Done]
+
+tiempo restante para el pedido [HARDOCODE something]
+
+encuesta con reseña
+
+ver dia y hora en que hicieron login  los empleados (middleware, tabla audit)
+cantidad de operaciones por sector (middleware, if token==mozo, operacionesMozos++)
+  /operaciones/empleados == 85
+operaciones por sector x empleado  (middleware, audit, getby)
+  /operaciones/empleados == 85
+  carlitos---3
+  juance ---22
+operaciones por separado
+  /operaciones/{username}
+  ---operaciones
+suspender/borrar/crear empleado
+listado pedidos => hora inicio, hora finalizacion, importe
+listado todos los pedidos
+producto que mas se vendio
+web host xd
+
+-tiempo restante (hardcode)
+-listado
+-encuesta
+-host
+-----------------
+socio puede crear empleado
+mozo puede tomar pedido y se crean los dispatches
+cada dispatch puede actualizar el estado pegandole a /pedido/id, el id es correspondiente a su rol, los estados son en secuencia
+se le pasa un tiempo estimado
+
+el mozo tambien le pega a /pedido/id y actualiza su estado segun los estados de los dispatches
+la mesa se actualiza en base al pedido gral
+
+username del cliente
+  se le pasa por json el nombre dle cliente
+  ya tiene un username, es ese, password es username al reves
+  no tiene username? se le genera
+
+alfanum:
+  right(cliente, 2).$pedido->id
+
+
+
+
+1) creo pedido con socio o mozo
+2) hago login con bartender/cocinero/cervecero para actualizar los pedidos independientes
