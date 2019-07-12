@@ -4,6 +4,7 @@ namespace Controllers;
 
 
 use Models\Empleado;
+use Models\User;
 use Helpers\AppConfig as Config;
 use Helpers\FilesHelper as Files;
 use Helpers\ImagesHelper as Images;
@@ -115,10 +116,17 @@ class EmpleadosController implements IController
       return $response->withJson("debe especificar username", 400);
     }
     $empleado = Empleado::FindByUsername($body["username"]);
-    if(!$empleado)
+    if(is_null($empleado))
     {
       return $response->withJson("empleado inexistente", 200);
     }
+
+    $user = User::FindByUsername($body["username"]);
+    if(is_null($user))
+    {
+      return $response->withJson("empleado inexistente", 200);
+    }
+    $user->delete();
     $empleado->delete();
     return $response->withJson("empleado eliminada");
   }

@@ -21,32 +21,19 @@ cervecero:
 
 ------------------------
 
-ver pedidos por rol 
-[DONE]
-
-Actualizar pedido por rol /pedidos/{id}/actualizar -> en preparacion / listo para servir
-  pedido general -> en preparacion, cuando todos los q's esten listos, listo para servir
-[DONE]
-
-ver single pedido
-[DONE]
-
-actualizar queue as "entregado" when mozo takes up /pedidos/cerveza/id if listo p servir => entregado
-[DONE]
-
-actualizar estado mesa properly
-[DONE]
-
-
-timestamps created updated closed -> pedidos and qs
-[DONE]
-
-Codigo alfanumerico para cliente 
-[Done]
-
 tiempo restante para el pedido [HARDOCODE something]
 
 encuesta con reseña
+  -usando el alfanum
+  -/pedido/{alfanum} -> post
+    ->reseña
+  $app->get("/pedido/{alfanum}", PedidosController::class . ':GetPedidoForCliente')->add(AuthMiddleware::class . ':IsLoggedIn');
+  1 al 10: mesa, restaurante, mozo y cocinero 
+  texto hasta 66 caracteres (buena o mala)
+mesa cerrada solo socios
+
+
+
 
 ver dia y hora en que hicieron login  los empleados (middleware, tabla audit)
 cantidad de operaciones por sector (middleware, if token==mozo, operacionesMozos++)
@@ -58,7 +45,6 @@ operaciones por sector x empleado  (middleware, audit, getby)
 operaciones por separado
   /operaciones/{username}
   ---operaciones
-suspender/borrar/crear empleado
 listado pedidos => hora inicio, hora finalizacion, importe
 listado todos los pedidos
 producto que mas se vendio
@@ -84,9 +70,6 @@ username del cliente
 
 alfanum:
   right(cliente, 2).$pedido->id
-
-
-
 
 1) creo pedido con socio o mozo
 2) hago login con bartender/cocinero/cervecero para actualizar los pedidos independientes

@@ -31,10 +31,15 @@ class AuthController
 
     }
 
+    if(!$user->active)
+    {
+      return $response->withJson("Su usuario se encuentra suspendido, contacte al administrador", 503);
+    }
     $obj = [
       "id" => $user->id,
       "username" => $user->username,
-      "role" => $user->role
+      "role" => $user->role,
+      "active" => $user->active
     ];
     return  JWTAuth::CreateToken($obj);
   }
@@ -48,6 +53,46 @@ class AuthController
 
       $newUser->save();
       return $newUser;
+  }
+
+  public static function Suspender($request, $response, $args)
+  {
+    $body = $request->getParsedBody();
+    if(!isset($body["username"]))
+    {
+      return $response->withJson("debe especificar id", 400);
+    }
+
+    $user = User::FindByUsername($body["username"]);
+
+    if(is_null($user))
+    {
+      return $response->withJson("empleado inexistente", 200);
+    }
+
+    $user->active = false;
+    $user->save();
+    return $response->withJson("Empleado suspendido", 200);
+  }
+
+  public static function DesSuspender($request, $response, $args)
+  {
+    $body = $request->getParsedBody();
+    if(!isset($body["username"]))
+    {
+      return $response->withJson("debe especificar id", 400);
+    }
+
+    $user = User::FindByUsername($body["username"]);
+
+    if(is_null($user))
+    {
+      return $response->withJson("user inexistente", 200);
+    }
+
+    $user->active = true;
+    $user->save();
+    return $response->withJson("Empleado activo", 200);
   }
 
   public static function ChangePassword()
