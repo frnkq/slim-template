@@ -431,7 +431,7 @@ class PedidosController implements IController
     if(is_null($pedido))
     {
       //no delegated pedido id
-      return $request->withJson("hubo un error, por favor intentelo de nuevo", 200);
+      return $response->withJson("hubo un error, por favor intentelo de nuevo", 200);
     }
     if($token->role == "socio" || $token->role == "mozo")
     {

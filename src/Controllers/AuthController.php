@@ -3,6 +3,7 @@
 namespace Controllers;
 use Helpers\JWTAuth;
 use Models\User;
+use Models\AuditLogIn;
 
 class AuthController
 {
@@ -41,6 +42,11 @@ class AuthController
       "role" => $user->role,
       "active" => $user->active
     ];
+    $aud = new AuditLogIn;
+    $aud->username = $user->username;
+    $aud->role = $user->role;
+    $aud->active = $user->active;
+    $aud->save();
     return  JWTAuth::CreateToken($obj);
   }
 

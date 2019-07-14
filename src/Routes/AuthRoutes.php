@@ -7,6 +7,6 @@ return function(App $app)
 {
   $app->group('/auth', function()
   {
-    $this->post('/login', AuthController::class . ':LogIn');
+    $this->post('/login', AuthController::class . ':LogIn')->setName("LogIn");
   });
 };

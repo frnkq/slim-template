@@ -20,9 +20,6 @@ cervecero:
   mhacha909-mhacha
 
 ------------------------
-
-tiempo restante para el pedido [HARDOCODE something]
-
 encuesta con reseña
   -usando el alfanum
   -/pedido/{alfanum} -> post
@@ -31,29 +28,10 @@ encuesta con reseña
   1 al 10: mesa, restaurante, mozo y cocinero 
   texto hasta 66 caracteres (buena o mala)
 mesa cerrada solo socios
-
-
-
-
-ver dia y hora en que hicieron login  los empleados (middleware, tabla audit)
-cantidad de operaciones por sector (middleware, if token==mozo, operacionesMozos++)
-  /operaciones/empleados == 85
-operaciones por sector x empleado  (middleware, audit, getby)
-  /operaciones/empleados == 85
-  carlitos---3
-  juance ---22
-operaciones por separado
-  /operaciones/{username}
-  ---operaciones
-listado pedidos => hora inicio, hora finalizacion, importe
-listado todos los pedidos
-producto que mas se vendio
+tiempo restante para el pedido [HARDOCODE something]
+listado pedidos => hora inicio, hora finalizacion, importe (factura)
 web host xd
 
--tiempo restante (hardcode)
--listado
--encuesta
--host
 -----------------
 socio puede crear empleado
 mozo puede tomar pedido y se crean los dispatches

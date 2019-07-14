@@ -11,17 +11,25 @@ return function(App $app)
   //socios or mozos
   $app->group('/admin/mesas', function()
   {
-    $this->get('/', MesasController::class . ':GetAll');
-    $this->get('/{id}', MesasController::class . ':GetOne');
+    $this->get('/', MesasController::class . ':GetAll')
+         ->setName("ListarMesas");
+
+    $this->get('/{id}', MesasController::class . ':GetOne')
+         ->setName("ListarMesa");
   })->add(AuthMiddleware::class.':IsLoggedIn')
     ->add(RoleMiddleware::class.':IsMozoOrHigher');
 
   //only socios
   $app->group('/admin/mesas', function()
   {
-    $this->post('/create', MesasController::class . ':Create');
-    $this->put('/update', MesasController::class . ':Update');
-    $this->delete('/delete', MesasController::class . ':Delete');
+    $this->post('/create', MesasController::class . ':Create')
+         ->setName("CrearMesa");
+
+    $this->put('/update', MesasController::class . ':Update')
+         ->setName("ActualizarMesa");
+
+    $this->delete('/delete', MesasController::class . ':Delete')
+         ->setName("EliminarMesa");
   })->add(AuthMiddleware::class.':IsLoggedIn')
     ->add(RoleMiddleware::class.':IsSocio');
 };
