@@ -8,6 +8,7 @@ use Models\Empleado;
 use Models\Mesa;
 use Models\Pedidos\Pedido;
 use Models\Factura;
+use Models\Resena;
 use Models\Producto;
 use Models\User;
 use Models\Pedidos\PedidoBar;
@@ -61,9 +62,71 @@ class PedidosController implements IController
 
   public static function GetPedidoForCliente($request, $response, $args)
   {
-    $pedido = Pedido::find($args["alfanum"][2]);
-    $returnStr = self::PedidoToUl($pedido->id);
+    $pedido = Pedido::find($args["alfanum"][2]); //first two chars are user name
+    if(is_null($pedido))
+    {
+      return $response->withJson("Pedido invalido");
+    }
+    $token = JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]);
+    
+    if($token->username != $pedido->clienteUsername)
+    {
+      return $response->withJson("Pedido invalido");
+    }
+
     return $response->getBody()->write($returnStr);
+  }
+
+  public static function CreateResena($request, $response, $args)
+  {
+    $pedido = Pedido::find($args["alfanum"][2]); //first two chars are user name
+    if(is_null($pedido))
+    {
+      return $response->withJson("Pedido invalido");
+    }
+    $token = JWTAuth::GetData($request->getHeaders()["HTTP_TOKEN"][0]);
+    
+    if($token->username != $pedido->clienteUsername)
+    {
+      return $response->withJson("Pedido invalido");
+    }
+    $data = $request->getParsedBody();
+    
+    $pMesa = $data["mesa"] < 0 ? 0 : $data["mesa"];
+    $pRestaurante = $data["restaurante"] < 0 ? 0 : $data["restaurante"];
+    $pMozo = $data["mozo"] < 0 ? 0 : $data["mozo"];
+    $pCocinero = $data["cocinero"] < 0 ? 0 : $data["cocinero"];
+
+    $pMesa = $pMesa > 5 ? 5 : $pMesa;
+    $pRestaurante = $pRestaurante > 5 ? 5 : $pRestaurante;
+    $pMozo = $pMozo > 5 ? 5 : $pMozo;
+    $pCocinero = $pCocinero > 5 ? 5 : $pCocinero;
+
+    $texto = $data["texto"];
+    if(strlen($data["texto"]) > 66)
+    {
+      $texto = substr($data["texto"], 0, 55);
+    }
+
+    
+    $res = new Resena;
+    $res->cliente = $token->username;
+    $res->pMesa = $pMesa;
+    $res->pMozo = $pMozo;
+    $res->pCocinero = $pCocinero;
+    $res->pRestaurante = $pRestaurante;
+    $res->texto = $texto;
+    $res->save();
+    $returnStr = "<h1>Gracias!</h1><p>Vuelva prontos</p><hr>";
+    $returnStr .= "<ul>";
+    $returnStr .= "<li>Puntaje mesa: ".$pMesa."/5</li>";
+    $returnStr .= "<li>Puntaje mozo: ".$pMozo."/5</li>";
+    $returnStr .= "<li>Puntaje cocinero: ".$pCocinero."/5</li>";
+    $returnStr .= "<li>Puntaje restaurante: ".$pRestaurante."/5</li>";
+    $returnStr .= "<li>".$texto."</li>";
+    $returnStr .= "</ul>";
+    return $response->getBody()->write($returnStr);
+
   }
 
   /**
@@ -435,8 +498,15 @@ class PedidosController implements IController
     }
     if($token->role == "socio" || $token->role == "mozo")
     {
+      
       self::UpdatePedidoGral($pedido);
-      return $response->withJson("Estado actualizado a ".$pedido->estado, 200);
+      $returnStr = self::PedidoToUl($pedido->id);
+      if($pedido->estado == "Cerrado")
+      {
+        $returnStr .= "<hr><h1>Imprimiendo factura.....:</h1>";
+        $returnStr .= self::FacturaToUl($pedido->facturaId);
+      }
+      return $response->getBody()->write($returnStr);
     }
 
     //pedidos state goes secuentially unless specified
@@ -525,8 +595,33 @@ class PedidosController implements IController
       $mesa = Mesa::find($pedido->mesaId);
       $mesa->estado = Config::$estadosMesa["cerrada"];
       $mesa->save();
+
+
+      
+      $factura = Factura::find($pedido->facturaId);
+      $factura->fechaApertura = $factura->fechaApertura;
+      $factura->fechaCierre = null;
+      $factura->importe = self::CalcularImporte($queues);
+      $factura->save();
     }
     $pedido->save();
+  }
+
+  public static function CalcularImporte($queues)
+  {
+    
+    $total = 0;
+    foreach($queues as $queue)
+    {
+      foreach($queue as $pedidoqueue)
+      {
+
+        $importe = Producto::find($pedidoqueue->productoId)->precioUnitario;
+        $cantidad = $pedidoqueue->cantidad;
+        $total += $importe * $cantidad;
+      }
+    }
+    return $total;
   }
 
   /**
@@ -544,6 +639,20 @@ class PedidosController implements IController
     throw new \BadMethodCallException;
   }
 
+  public static function FacturaToUl($id)
+  {
+    $factura = Factura::find($id);
+    $returnStr = "<ul>";
+    $returnStr .= "<li>".$factura->guid."</li>";
+    $returnStr .= "<li>Mozo:".$factura->mozoUsername."</li>";
+    $returnStr .= "<li>Cliente:".$factura->clienteUsername."</li>";
+    $returnStr .= "<li>Apertura:".$factura->fechaApertura."</li>";
+    $returnStr .= "<li>Cierre:".$factura->fechaCierre."</li>";
+    $returnStr .= "<li>Importe:".$factura->importe."</li>";
+    $returnStr .= "</ul>";
+    return $returnStr;
+  }
+
   /**
    * PedidoToUl
    *
@@ -555,6 +664,8 @@ class PedidosController implements IController
   public static function PedidoToUl($id)
   {
     $pedido = Pedido::find($id);
+    $importe = 0;
+    $tiempoEstimado = 0;
     $returnStr = "<ul>";
     $returnStr .="<li>Pedido: ".$pedido->id."</li>";
     $returnStr .="<li>Cliente: ".$pedido->clienteUsername."</li>";
@@ -569,6 +680,8 @@ class PedidosController implements IController
         $pedidoBar = PedidoBar::find($idPedidoBar)->first();
         $prod = Producto::find($pedidoBar->productoId);
         $returnStr .= "<li>".$pedidoBar->cantidad." X ".$prod->producto."</li>";
+        $importe += $prod->precioUnitario * $pedidoBar->cantidad;
+        $tiempoEstimado = $prod->tiempoEstimado > $tiempoEstimado ? $prod->tiempoEstimado : $tiempoEstimado;
       }
     $returnStr .="</ul>";
 
@@ -579,6 +692,8 @@ class PedidosController implements IController
         $pedidoCerveza = PedidoCerveza::find($idPedidoCerveza)->first();
         $prod = Producto::find($pedidoCerveza->productoId);
         $returnStr .= "<li>".$pedidoCerveza->cantidad." X ".$prod->producto."</li>";
+        $importe += $prod->precioUnitario * $pedidoCerveza->cantidad;
+        $tiempoEstimado = $prod->tiempoEstimado > $tiempoEstimado ? $prod->tiempoEstimado : $tiempoEstimado;
       }
     $returnStr .="</ul>";
 
@@ -589,10 +704,13 @@ class PedidosController implements IController
         $pedidoCocina = PedidoCocina::find($idPedidoCocina);
         $prod = Producto::find($pedidoCocina->productoId);
         $returnStr .= "<li>".$pedidoCocina->cantidad." X ".$prod->producto."</li>";
+        $importe += $prod->precioUnitario * $pedidoCocina->cantidad;
+        $tiempoEstimado = $prod->tiempoEstimado > $tiempoEstimado ? $prod->tiempoEstimado : $tiempoEstimado;
       }
     $returnStr .="</ul>";
-
     $returnStr .="</ul>";
+    $returnStr .="<li>Tiempo estimado: ".$tiempoEstimado."min </li>";
+    $returnStr .="<p>Importe:$".$importe."</p>";
     $returnStr .="<hr>";
     return $returnStr;
   }

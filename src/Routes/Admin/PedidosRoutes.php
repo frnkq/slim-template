@@ -32,6 +32,11 @@ return function(App $app)
       ->setName("ListarPedido")
       ->add(AuthMiddleware::class . ':IsLoggedIn');
 
+  $app->post("/pedido/{alfanum}", PedidosController::class . ':CreateResena')
+      ->setName("EnviarResena")
+      ->add(AuthMiddleware::class . ':IsLoggedIn');
+
+
   //id corresponde al tipo de pedido segun el rol
   $app->post("/pedidos/{id}", PedidosController::class . ':Update')
       ->setName("ActualizarPedido")->add(AuthMiddleware::class . ':IsLoggedIn');
